@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   
   has_many :reviews
   has_many :products
+
+  def fullname
+  	"#{self.firstname} #{self.lastname}"
+  end
 end
