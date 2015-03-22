@@ -12,9 +12,17 @@
     %nav.navbar.navbar-default
       .container-fluid
         .navbar-header
-          %span.navbar-brand #{AppConfig.workshops_name}
+          %span 
+            = link_to "#{AppConfig.workshops_name}", root_path, class: 'navbar-brand'
         %p.navbar-text.navbar-right
-          Links should go here
+          - if signed_in?
+            = link_to current_user.email, edit_user_registration_path(current_user)
+            |
+            = link_to 'Log out', destroy_user_session_path, method: :delete
+          - else
+            = link_to 'Log in', new_user_session_path
+            |  
+            = link_to 'Sign up', new_user_registration_path
     .container-fluid
       .row
         .col-lg-8.col-lg-offset-2
