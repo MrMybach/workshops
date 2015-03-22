@@ -21,8 +21,7 @@ config/database.yml
 .env
 .rvmrc
 .powrc
-netguru-workshops.sublime-project
-netguru-workshops.sublime-workspace
+
 logfile
 
 local.local.*
