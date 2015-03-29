@@ -1,21 +1,33 @@
-%h1 
-  Categories
-  - if user_signed_in? && current_user.admin?
-    = link_to new_category_path, class: 'btn btn-default btn-sm pull-right' do
-      %span.glyphicon.glyphicon-plus
-      New Category
+%div.row
+  %h1 
+    Categories
+    / - if user_signed_in? && current_user.admin?
+    /   = link_to new_category_path, class: 'btn btn-default btn-sm pull-right' do
+    /     %span.glyphicon.glyphicon-plus
+    /     New Category
 
-%ul.list-group
-  - categories.each do |category|
-    %li.list-group-item
-      = link_to category.name, category
-      - if user_signed_in? && current_user.admin?
-        %div{ :class => 'btn-group pull-right', :role => 'group' }
-          = link_to edit_category_path(category), class: 'btn btn-warning btn-xs' do
-            %span.glyphicon.glyphicon-edit
-            Edit
-          = link_to category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do |
-            %span.glyphicon.glyphicon-trash
-            Delete
-      - else
-        %span.badge= "#{pluralize(category.products.count, "product")} in this category"
+  %hr
+
+  - if user_signed_in? && current_user.admin?
+    %div.panel.panel-success
+      %div.panel-heading Add new category
+      %div.panel-body
+        = render 'form'
+  
+  %br
+  %h4 Categories list
+
+  %ul.list-group
+    - categories.each do |category|
+      %li.list-group-item
+        = link_to category.name, category
+        - if user_signed_in? && current_user.admin?
+          %div{ :class => 'btn-group pull-right', :role => 'group' }
+            = link_to edit_category_path(category), class: 'btn btn-warning btn-xs' do
+              %span.glyphicon.glyphicon-edit
+              Edit
+            = link_to category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' do |
+              %span.glyphicon.glyphicon-trash
+              Delete
+        - else
+          %span.badge= "#{pluralize(category.products.count, "product")} in this category"

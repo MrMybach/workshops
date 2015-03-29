@@ -1,17 +1,24 @@
-%p#notice= notice
+%div.row
+  %div.col-lg-6
+    %h3
+      %b Name:
+      = category.name
+      %div{ :class => 'btn-group pull-right', :role => 'group' }
+        - if user_signed_in? && current_user.admin?
+          = link_to edit_category_path(category), title: 'Edit this category', class: 'btn btn-warning btn-xs' do
+            %span.glyphicon.glyphicon-edit
+            Edit
+        = link_to categories_path, class: 'btn btn-primary btn-xs' do
+          %span.glyphicon.glyphicon-chevron-left
+          Back
 
-%p
-  %b Name:
-  = category.name
+    %section.list-group
+      - category.products.each do |product|
+        = link_to category_product_path(product.category, product), class: 'list-group-item' do
+          %h4.list-group-item-heading= product.title
+          %p.list-group-item-text= product.description
+          %p.list-group-item-text= number_to_currency(product.price, unit: '$')
 
-%p
-  - category.products.each do |product|
-    = product.title
-
-%p
-  %h3 New product
-  = render 'products/form'
-
-= link_to 'Edit', edit_category_path(category)
-\|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+  %div.col-lg-6
+    %h3 Add product in this category
+    = render 'products/form'
