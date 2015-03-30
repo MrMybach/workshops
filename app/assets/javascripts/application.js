@@ -5,5 +5,5 @@
 $(document).ready(function(){
 	setTimeout(function(){
 		$('.js-fade-out-msg').fadeOut('fast');
-	}, 5000);	
+	}, 7000);	
 });
