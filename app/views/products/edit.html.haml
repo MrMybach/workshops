@@ -1,7 +1,15 @@
-%h1 Editing product
+%div.row
+  %div.col-lg-6.col-lg-offset-3
+    %h2 
+      Editing product
+      %div{ :class => 'btn-group pull-right', :role => 'group' }
+        = link_to category_product_path(category, product), class: 'btn btn-default btn-sm' do
+          %span.glyphicon.glyphicon-eye-open
+          Show
+        = link_to category_path(category), class: 'btn btn-primary btn-sm' do
+          %span.glyphicon.glyphicon-chevron-left
+          Back
 
-= render 'form'
+    %hr
 
-= link_to 'Show', category_product_path(category, product)
-\|
-= link_to 'Back', category_path(category)
+    = render 'form'

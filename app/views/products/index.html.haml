@@ -1,21 +1,25 @@
-%h1 Listing products
+%h1 Listing #{ category.name } products
 
-%table
+%table.table.table-striped
   %tr
     %th Title
     %th Description
     %th Price
-    %th
-    %th
-    %th
-
-  - products.each do |product|
+    %th Actions
+    
+  - category.products.each do |product|
     %tr
-      %td= product.title
+      %td= link_to product.title, category_product_path(product.category, product)
       %td= product.description
-      %td= product.price
-      %td= link_to 'Show', category_product_path(product.category, product)
-      %td= link_to 'Edit', edit_category_product_path(product.category, product)
-      %td= link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }
-
-%br
+      %td= number_to_currency(product.price, unit: '$')
+      %td
+        %div{ :class => 'btn-group', :role => 'group' }
+          = link_to edit_category_product_path(product.category, product), class: 'btn btn-warning btn-xs' do
+            %span.glyphicon.glyphicon-pencil
+            Edit
+          = link_to category_product_path(product.category, product), 
+          method: :delete, 
+          data: { confirm: 'Are you sure?' }, 
+          class: 'btn btn-danger btn-xs' do
+            %span.glyphicon.glyphicon-trash
+            Delete

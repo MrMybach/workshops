@@ -1,19 +1,22 @@
 = form_for [category, product] do |f|
   - if product.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(product.errors.count, "error")} prohibited this product from being saved:"
+    / = pry
+    #error_explanation.well.well-sm
+      %p= "#{pluralize(product.errors.count, "error")} prohibited this product from being saved:"
       %ul
         - product.errors.full_messages.each do |msg|
-          %li= msg
+          %li.text-danger= msg
 
-  .form-group
+  .form-group{ product.errors.messages[:title] ? {class: "has-error"} : {} }
     = f.label :title
     = f.text_field :title, class: 'form-control'
-  .form-group
+  .form-group{ product.errors.messages[:description] ? {class: "has-error"} : {} }
     = f.label :description
     = f.text_area :description, class: 'form-control'
-  .form-group
+  .form-group{ product.errors.messages[:price] ? {class: "has-error"} : {} }
     = f.label :price
-    = f.text_field :price, class: 'form-control'
+    .input-group
+      .input-group-addon $
+      = f.text_field :price, class: 'form-control'
 
   = f.submit 'Save', class: 'btn btn-default'

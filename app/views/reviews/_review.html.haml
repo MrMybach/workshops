@@ -1,4 +1,14 @@
+%hr
 %p= review.content
-%p
-  %b= review.rating
-  %em= review.author
+%small
+  From:
+  %em.text-muted
+    = review.author
+  at:
+  %em.text-muted
+    = review.published_at
+%p.text-warning
+  - review.rating.times do
+    %span.glyphicon.glyphicon-star
+  - (5-review.rating).times do
+    %span.glyphicon.glyphicon-star-empty

@@ -1,25 +1,49 @@
-%p#notice= notice
-%p#error= flash[:error]
+.row
+  .col-lg-7
+    %h2.text-primary
+      = product.title
+      %div{ :class => 'btn-group pull-right', :role => 'group' }
+        - if user_signed_in? && product.user = current_user
+          = link_to edit_category_product_path(category.id, product.id), title: 'Edit this product', class: 'btn btn-warning btn-xs' do
+            %span.glyphicon.glyphicon-edit
+            Edit
+        = link_to category_products_path, class: 'btn btn-primary btn-xs' do
+          %span.glyphicon.glyphicon-chevron-left
+          Back
 
-%p
-  %b Title:
-  = product.title
-%p
-  %b Description:
-  = product.description
-%p
-  %b Price:
-  = product.price
+    %h4
+      %b Price:
+      = number_to_currency(product.price, unit: '$')
 
-%p
-  %b Category
-  = product.category.name
+    %p
+      %b Category:
+      = product.category.name
 
-%h3 Reviews
-= render 'reviews/form'
+    %p
+      %b Description:
+      = product.description
 
-= render reviews
+  .col-lg-5
+    %br
+    %h4 
+      Product reviews
+      - if reviews.any?
+        %span.average-ratings
+          - product.average_rating.to_i.times do
+            %span.glyphicon.glyphicon-star
+          - (5 - product.average_rating).to_i.times do
+            %span.glyphicon.glyphicon-star-empty
+          %strong.text-muted
+            = number_with_precision(product.average_rating, precision: 2)
 
-= link_to 'Edit', edit_category_product_path(category.id, product.id)
-\|
-= link_to 'Back', category_products_path, class: 'btn btn-primary'
+    - if product.reviews.any?
+      = render reviews
+    - else
+      %hr
+      %p No reviews
+    - if user_signed_in?
+      = render 'reviews/form'
+    - else
+      %p
+        To add a review, please 
+        = link_to 'Log in', new_user_session_path
