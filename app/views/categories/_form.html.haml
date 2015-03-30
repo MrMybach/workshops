@@ -6,7 +6,7 @@
         - category.errors.full_messages.each do |msg|
           %li.text-danger= msg
 
-  .form-group{ category.errors.any? ? {class: "has-error"} : {} }
+  .form-group{ category.errors.messages[:name] ? {class: "has-error"} : {} }
     = f.label :name
     = f.text_field :name, class: 'form-control'
 
