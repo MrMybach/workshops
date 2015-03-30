@@ -23,12 +23,11 @@
             = link_to 'Log in', new_user_session_path
             |  
             = link_to 'Sign up', new_user_registration_path
+    .message-container
+      -flash.each do |message_type, message|
+        %div(class="alert #{ message_type_to_bootstrap_class message_type } js-fade-out-msg")
+          = message
     .container-fluid
-      .row
-        .col-lg-8.col-lg-offset-2
-          -flash.each do |message_type, message|
-            %div(class="alert #{ message_type_to_bootstrap_class message_type } js-fade-out-msg")
-              = message
       .row
         .col-lg-8.col-lg-offset-2
           = yield
