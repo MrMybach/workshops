@@ -1,4 +1,11 @@
-%h1 Listing #{ category.name } products
+%h1 
+  Listing #{ category.name } products
+  - if user_signed_in? && current_user.admin?
+    = link_to new_category_product_path, class: 'btn btn-default btn-sm pull-right' do
+      %span.glyphicon.glyphicon-plus
+      Add new product
+
+%hr
 
 %table.table.table-striped
   %tr
