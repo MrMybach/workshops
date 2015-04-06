@@ -16,7 +16,8 @@
             = link_to "#{AppConfig.workshops_name}", root_path, class: 'navbar-brand'
         %p.navbar-text.navbar-right
           - if signed_in?
-            = link_to current_user.email, edit_user_registration_path(current_user)
+            = image_tag current_user.gravatar_url(size: 20)
+            = link_to "#{current_user.firstname} #{current_user.lastname}", user_path(current_user)
             |
             = link_to 'Log out', destroy_user_session_path, method: :delete
           - else
