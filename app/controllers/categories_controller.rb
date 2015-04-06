@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
     if category.save
       redirect_to category, notice: 'Category was successfully created.'
     else
-      render :index
+      render :new
     end
   end
 
