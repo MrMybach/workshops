@@ -1,0 +1,40 @@
+.row
+  .col-lg-2
+    %h3= image_tag current_user.gravatar_url(size: 120)
+    %div{ :class => 'btn-group', :role => 'group' }
+      = link_to edit_user_registration_path, class: 'btn btn-warning btn-xs' do
+        %span.glyphicon.glyphicon-edit
+        Edit your profile
+  .col-lg-5
+    %h3
+      #{current_user.firstname} #{current_user.lastname}
+    %p
+      %strong.text-muted
+        Email:
+      = current_user.email
+    %p
+      %strong.text-muted
+        Registered at:
+      = current_user.created_at.strftime("%d %b %Y")
+  .col-lg-5
+    %h4 Your 5 last product reviews
+    - if current_user.reviews.any?
+      %ul.list-unstyled
+        - current_user.reviews.last(5).each do |review|
+          %li
+            %hr
+            %p
+              = link_to review.product.title, category_product_path(review.product.category,review.product)
+              %span.average-ratings
+                - review.rating.times do
+                  %span.glyphicon.glyphicon-star
+                - (5-review.rating).times do
+                  %span.glyphicon.glyphicon-star-empty
+            %p= review.content
+            %small
+              Published at:
+              %em.text-muted= review.created_at.strftime("%d-%m-%y")
+    - else
+      %hr
+      %p You did not add any review. Maybe you should add one.
+
