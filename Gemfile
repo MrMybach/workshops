@@ -20,6 +20,7 @@ gem 'travis'
 gem 'ffaker'
 gem 'konf'
 gem 'gravtastic'
+gem 'rails_12factor'
 
 group :development do
   gem 'spring'
