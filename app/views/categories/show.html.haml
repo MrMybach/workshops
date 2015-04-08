@@ -21,4 +21,12 @@
 
   %div.col-lg-6
     %h3 Add product in this category
-    = render 'products/form'
+    - if user_signed_in?
+      = render 'products/form'
+    - else
+      %p 
+        You need to 
+        = link_to 'sign in', new_user_session_path
+        or 
+        = link_to 'sign up', new_user_registration_path
+        to add the product.
